@@ -1,6 +1,5 @@
 package com.example.janig.httpsexample;
 
-import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,8 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
@@ -17,17 +14,17 @@ public class MainActivity extends ActionBarActivity {
 
     private static final String LOGTAG = "MainActivity";
     DownloadHandler downLoadHandler;
-    SmhiWeatherCallback callback = new SmhiWeatherCallback();
+    GithubDataCallback callback = new GithubDataCallback();
 
-    SmhiWeatherCallback.WeatherDataListener listener = new SmhiWeatherCallback.WeatherDataListener() {
+    GithubDataCallback.GithubUserRepositoriesListener listener = new GithubDataCallback.GithubUserRepositoriesListener() {
         @Override
-        public void receivedWeatherData(SmhiWeatherData smhiWeatherData) {
-            Log.d(LOGTAG,"receivedWeatherData:"+smhiWeatherData);
+        public void receivedGithubUserRepositoryData(Response githubUserRepositories) {
+            Log.d(LOGTAG, "receivedGithubUserRepositoryData:" + githubUserRepositories);
         }
 
         @Override
         public void receivedError(String error) {
-            Log.d(LOGTAG,"receivedError:"+error);
+            Log.d(LOGTAG, "receivedError:" + error);
         }
     };
 
@@ -62,10 +59,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void downloadButtonClicked(View view) {
-        String latitude="59.325343";
-        String longitude="18.135681";
-        downLoadHandler.downloadWeather(longitude, latitude, callback);
-
+        downLoadHandler.downloadGithubData("jancoffee", callback);
     }
 
 
