@@ -26,7 +26,12 @@ public class DownloadHandler {
     public DownloadHandler(MainActivity mainActivity) {
 
         OkHttpClient okHttpClient = new OkHttpClient();
-
+        /**
+         * Warning!
+         * setting your own SSLSocketFactor WILL disable the security update
+         * that the Google Play Service can provide!!
+         * https://developer.android.com/training/articles/security-gms-provider.html
+         * */
         if (!setupSSLSocketFactor(okHttpClient, mainActivity.getAssets())) {
             Log.e(LOGTAG, "failed to set SSL socket factory");
         }
